@@ -5,7 +5,7 @@ const operators = document.querySelectorAll('.operator');
 const clearButton = document.querySelector('#clear');
 const equal = document.querySelector('#equal');
 
-const operatorArray = ['+', '-', 'x', '&#247;'];
+const operatorArray = ['+', '-', 'x', '÷'];
 
 let num1;
 let num2;
@@ -37,11 +37,32 @@ function checkForOperand() {
 
 function operate(n1, n2, symbol) {
     console.log('working bby');
-
+    if (!operatorArray.some(inc => topDisplay.textContent.includes(inc))) {
+        botDisplay.textContent = topDisplay.textContent;
+        return;
+    }
+    let arrayToOperate = topDisplay.textContent.split(/([\+\-x÷])/g);
+    let result;
+    console.log(arrayToOperate);
+    switch (arrayToOperate[1]) {
+        case '+':
+            result = add(arrayToOperate[0], arrayToOperate[2]);
+            break;
+        case '-':
+            result = subtract(arrayToOperate[0], arrayToOperate[2]);
+            break;
+        case 'x':
+            result = multiply(arrayToOperate[0], arrayToOperate[2]);
+            break;
+        case '÷':
+            result = divide(arrayToOperate[0], arrayToOperate[2]);
+            break;
+    }
+    botDisplay.textContent = result;
 }
 
 function add(n1, n2) {
-    return n1 + n2;
+    return +n1 + +n2;
 }
 
 function subtract(n1, n2) {
