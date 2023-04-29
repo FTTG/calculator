@@ -44,7 +44,7 @@ body {
     gap: 20px;
     padding: 20px 0;
     border-radius: 10px;
-    background-color: #495867;
+    background-color: #cccccc;
     /* background-color: #686963; */
 }
 
@@ -79,10 +79,12 @@ body {
 
 #top-display {
     font-size: 20px;
+    height: 20px;
 }
 
 #bottom-display {
     font-size: 40px;
+    height: 40px;
 }
 
 .key {
@@ -96,6 +98,7 @@ body {
     background-color: #626267;
     border-radius: 5px;
     transition: 0.1s;
+    color: white;
 }
 
 .key:hover {
@@ -118,6 +121,10 @@ body {
 
 #clear {
     background-color: #F06543;
+}
+
+#del {
+    background: #eb8167;
 }
 
 footer {
