@@ -5,6 +5,8 @@ const operators = document.querySelectorAll('.operator');
 const clearButton = document.querySelector('#clear');
 const equal = document.querySelector('#equal');
 
+let newResult = false;
+
 const operatorArray = ['+', '-', 'x', '÷'];
 
 let num1;
@@ -16,10 +18,16 @@ for (let operator of operators) operator.addEventListener('click', checkForOpera
 
 clearButton.addEventListener('click', clearScreen);
 equal.addEventListener('click', operate);
+equal.addEventListener('click', () => newResult = true);
 
 function addToDisplay() {
-    console.log(this);
-    if (topDisplay.textContent == '0') {
+    // Validate that we are not coming from just giving a result (so need to reset top display)
+    if (newResult) {
+        newResult = false;
+        topDisplay.textContent = '';
+    }
+    // 
+    if (topDisplay.textContent == 0) {
         topDisplay.textContent = this.textContent;
         return;
     }
@@ -27,6 +35,8 @@ function addToDisplay() {
 }
 
 function checkForOperand() {
+    if (newResult) newResult = false;
+
     if (operatorArray.some(inc => topDisplay.textContent.includes(inc))) {
         operate();
         if (botDisplay.textContent != 'BOOM') {
@@ -37,6 +47,10 @@ function checkForOperand() {
             return;
         }
     }
+    console.log(topDisplay.textContent);
+    // if (topDisplay.textContent == 0) {
+    //     topDisplay.textContent = 0;
+    // }
     addToDisplay.call(this);
 }
 
@@ -47,7 +61,6 @@ function operate(n1, n2, symbol) {
     }
     let arrayToOperate = topDisplay.textContent.split(/([\+\-x÷])/g);
     let result;
-    console.log(arrayToOperate);
     switch (arrayToOperate[1]) {
         case '+':
             result = add(arrayToOperate[0], arrayToOperate[2]);
