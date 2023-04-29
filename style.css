@@ -1,5 +1,11 @@
+@font-face {
+    font-family: 'digitalDisplay';
+    src: url(font/digital\ display\ tfb.ttf) format('truetype');
+}
+
 html {
     box-sizing: border-box;
+    height: 100%;
 }
 
 *,
@@ -11,11 +17,15 @@ html {
 body {
     margin: 0;
     padding: 0;
+    min-height: 95%;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    margin-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
     font-family: sans-serif;
+    background: #E0D3DE;
 }
 
 .calculator-body,
@@ -32,9 +42,10 @@ body {
     justify-content: space-evenly;
     align-items: center;
     gap: 20px;
-    padding: 20px;
+    padding: 20px 0;
     border-radius: 10px;
-    background-color: #686963;
+    background-color: #495867;
+    /* background-color: #686963; */
 }
 
 .keys-container {
@@ -53,11 +64,29 @@ body {
 .screen {
     height: 70px;
     width: 270px;
-    border: solid black 1px;
+    border: inset black 5px;
+    background-color: #ffa500;
+    font-family: digitalDisplay, sans-serif;
+    text-align: end;
+    margin: 0;
+    padding: 0;
+}
+
+.screen p {
+    margin: 0;
+    padding: 0;
+}
+
+#top-display {
+    font-size: 20px;
+}
+
+#bottom-display {
+    font-size: 40px;
 }
 
 .key {
-    border: black solid 2px;
+    border: black groove 5px;
     height: 60px;
     width: 60px;
     padding: 10px;
@@ -73,6 +102,10 @@ body {
     transform: translate(0, -5px);
 }
 
+.key:active {
+    border-style: ridge;
+}
+
 .operator {
     background-color: #63B4D1;
 }
@@ -84,4 +117,10 @@ body {
 
 #clear {
     background-color: #F06543;
+}
+
+footer {
+    /* margin-bottom: 40px; */
+    margin: 0;
+    padding: 0;
 }
