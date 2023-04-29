@@ -4,9 +4,11 @@ const botDisplay = document.querySelector('#bottom-display');
 const operators = document.querySelectorAll('.operator');
 const clearButton = document.querySelector('#clear');
 const equal = document.querySelector('#equal');
+const backSpace = document.querySelector('#del');
 
 let newResult = false;
 
+// Define the operators to check on new inputs
 const operatorArray = ['+', '-', 'x', '÷'];
 
 let num1;
@@ -19,6 +21,7 @@ for (let operator of operators) operator.addEventListener('click', checkForOpera
 clearButton.addEventListener('click', clearScreen);
 equal.addEventListener('click', operate);
 equal.addEventListener('click', () => newResult = true);
+backSpace.addEventListener('click', clearCharacter);
 
 function addToDisplay() {
     // Validate that we are not coming from just giving a result (so need to reset top display)
@@ -47,10 +50,6 @@ function checkForOperand() {
             return;
         }
     }
-    console.log(topDisplay.textContent);
-    // if (topDisplay.textContent == 0) {
-    //     topDisplay.textContent = 0;
-    // }
     addToDisplay.call(this);
 }
 
@@ -103,4 +102,11 @@ function multiply(n1, n2) {
 function clearScreen() {
     topDisplay.textContent = '';
     botDisplay.textContent = '0';
+}
+
+function clearCharacter() {
+    if (topDisplay.textContent == '') return;
+    let string = topDisplay.textContent;
+    string = string.slice(0, string.length - 1);
+    topDisplay.textContent = string;
 }
