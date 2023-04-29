@@ -5,8 +5,10 @@ const operators = document.querySelectorAll('.operator');
 const clearButton = document.querySelector('#clear');
 const equal = document.querySelector('#equal');
 const backSpace = document.querySelector('#del');
+const decimal = document.querySelector('#decimal');
 
 let newResult = false;
+let isOperand = false;
 
 // Define the operators to check on new inputs
 const operatorArray = ['+', '-', 'x', '÷'];
@@ -22,6 +24,7 @@ clearButton.addEventListener('click', clearScreen);
 equal.addEventListener('click', operate);
 equal.addEventListener('click', () => newResult = true);
 backSpace.addEventListener('click', clearCharacter);
+decimal.addEventListener('click', validateDecimal);
 
 function addToDisplay() {
     // Validate that we are not coming from just giving a result (so need to reset top display)
@@ -30,10 +33,16 @@ function addToDisplay() {
         topDisplay.textContent = '';
     }
     // 
-    if (topDisplay.textContent == 0) {
+    if (!isOperand && topDisplay.textContent == 0) {
         topDisplay.textContent = this.textContent;
         return;
     }
+    if (topDisplay.textContent == 0 && isOperand) {
+        topDisplay.textContent = '0' + this.textContent;
+        isOperand = false;
+        return;
+    }
+    isOperand = false;
     topDisplay.textContent = topDisplay.textContent + this.textContent;
 }
 
@@ -50,10 +59,11 @@ function checkForOperand() {
             return;
         }
     }
+    isOperand = true;
     addToDisplay.call(this);
 }
 
-function operate(n1, n2, symbol) {
+function operate() {
     if (!operatorArray.some(inc => topDisplay.textContent.includes(inc))) {
         botDisplay.textContent = topDisplay.textContent;
         return;
@@ -109,4 +119,8 @@ function clearCharacter() {
     let string = topDisplay.textContent;
     string = string.slice(0, string.length - 1);
     topDisplay.textContent = string;
+}
+
+function validateDecimal() {
+    addToDisplay.call(this);
 }
