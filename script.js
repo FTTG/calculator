@@ -27,16 +27,20 @@ function addToDisplay() {
 }
 
 function checkForOperand() {
-    let result;
-    console.log(this);
     if (operatorArray.some(inc => topDisplay.textContent.includes(inc))) {
-        result = operate();
+        operate();
+        if (botDisplay.textContent != 'BOOM') {
+            topDisplay.textContent = botDisplay.textContent;
+        }
+        else {
+            topDisplay.textContent = ''
+            return;
+        }
     }
     addToDisplay.call(this);
 }
 
 function operate(n1, n2, symbol) {
-    console.log('working bby');
     if (!operatorArray.some(inc => topDisplay.textContent.includes(inc))) {
         botDisplay.textContent = topDisplay.textContent;
         return;
@@ -70,6 +74,12 @@ function subtract(n1, n2) {
 }
 
 function divide(n1, n2) {
+    if (n2 == 0) {
+        setTimeout(() => {
+            botDisplay.textContent = '0';
+        }, 1000);
+        return 'BOOM'
+    }
     return n1 / n2;
 }
 
