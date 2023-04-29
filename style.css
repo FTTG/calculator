@@ -104,6 +104,7 @@ body {
 
 .key:active {
     border-style: ridge;
+    transform: translate(0, -3px);
 }
 
 .operator {
